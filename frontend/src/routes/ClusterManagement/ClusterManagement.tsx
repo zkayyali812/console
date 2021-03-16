@@ -65,8 +65,8 @@ export default function ClusterManagementPage() {
                     <PageContext.Provider value={{ actions, setActions }}>
                         <PageSection variant={PageSectionVariants.light}>
                             <TextContent>
-                                <Text component="h1">Cluster Management</Text>
-                                <Text component="p">Create, import, and manage clusters across cloud providers.</Text>
+                                <Text component="h1">{t('page.header.cluster-management')}</Text>
+                                <Text component="p">{t('page.header.cluster-management.description')}</Text>
                             </TextContent>
                         </PageSection>
                         <Divider component="div" />
