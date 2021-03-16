@@ -37,9 +37,7 @@ export default function CredentialsPage() {
             <PageSection variant={PageSectionVariants.light}>
                 <TextContent>
                     <Text component="h1">{t('manageCredentials')}</Text>
-                    <Text component="p">
-                        Credentials for cloud providers, Ansible Tower, bare metal assets, and Red Hat cloud.
-                    </Text>
+                    <Text component="p">{t('credentials.management.description')}</Text>
                 </TextContent>
             </PageSection>
             <Divider component="div" />

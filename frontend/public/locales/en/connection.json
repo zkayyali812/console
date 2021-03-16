@@ -1,5 +1,6 @@
 {
     "manageCredentials": "Manage credentials",
+    "credentials.management.description": "Credentials for cloud providers, Ansible Tower, bare metal assets, and Red Hat cloud.",
     "connection": "Credential",
     "connections": "Credentials",
     "empty.title": "No credentials found.",
