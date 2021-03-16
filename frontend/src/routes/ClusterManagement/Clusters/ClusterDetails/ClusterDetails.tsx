@@ -4,9 +4,11 @@ import {
     AcmActionGroup,
     AcmButton,
     AcmErrorBoundary,
+    AcmHeader,
     AcmLaunchLink,
     AcmPage,
     AcmPageHeader,
+    AcmRoute,
     AcmScrollable,
     AcmSecondaryNav,
     AcmSecondaryNavItem,
@@ -162,94 +164,99 @@ export default function ClusterDetailsPage({ match }: RouteComponentProps<{ id: 
     }
 
     return (
-        <AcmPage hasDrawer>
-            <ClusterContext.Provider
-                value={{
-                    cluster,
-                    addons,
-                    addonsError,
-                    importCommand,
-                    setImportCommand,
-                    importCommandError,
-                    setImportCommandError,
-                }}
-            >
-                <AcmPageHeader
-                    breadcrumb={[
-                        { text: t('clusters'), to: NavigationPath.clusters },
-                        { text: match.params.id, to: '' },
-                    ]}
-                    title={match.params.id}
-                    navigation={
-                        <AcmSecondaryNav>
-                            <AcmSecondaryNavItem
-                                isActive={
-                                    location.pathname === NavigationPath.clusterOverview.replace(':id', match.params.id)
-                                }
-                            >
-                                <Link to={NavigationPath.clusterOverview.replace(':id', match.params.id)}>
-                                    {t('tab.overview')}
-                                </Link>
-                            </AcmSecondaryNavItem>
-                            <AcmSecondaryNavItem
-                                isActive={
-                                    location.pathname === NavigationPath.clusterNodes.replace(':id', match.params.id)
-                                }
-                            >
-                                <Link to={NavigationPath.clusterNodes.replace(':id', match.params.id)}>
-                                    {t('tab.nodes')}
-                                </Link>
-                            </AcmSecondaryNavItem>
-                            <AcmSecondaryNavItem
-                                isActive={
-                                    location.pathname === NavigationPath.clusterSettings.replace(':id', match.params.id)
-                                }
-                            >
-                                <Link to={NavigationPath.clusterSettings.replace(':id', match.params.id)}>
-                                    {t('tab.settings')}
-                                </Link>
-                            </AcmSecondaryNavItem>
-                        </AcmSecondaryNav>
-                    }
-                    actions={
-                        <Fragment>
-                            <AcmActionGroup>
-                                <AcmLaunchLink
-                                    links={addons
-                                        ?.filter((addon) => addon.launchLink)
-                                        ?.map((addon) => ({
-                                            id: addon.launchLink?.displayText!,
-                                            text: addon.launchLink?.displayText!,
-                                            href: addon.launchLink?.href!,
-                                        }))}
-                                />
-                                <DownloadConfigurationDropdown canGetSecret={canGetSecret} />
-                                <ClusterActionDropdown cluster={cluster!} isKebab={false} />
-                            </AcmActionGroup>
-                        </Fragment>
-                    }
-                />
-                <AcmErrorBoundary>
-                    <AcmScrollable borderTop>
-                        <Suspense fallback={<Fragment />}>
-                            <Switch>
-                                <Route exact path={NavigationPath.clusterOverview}>
-                                    <ClusterOverviewPageContent canGetSecret={canGetSecret} />
-                                </Route>
-                                <Route exact path={NavigationPath.clusterNodes}>
-                                    <NodePoolsPageContent />
-                                </Route>
-                                <Route exact path={NavigationPath.clusterSettings}>
-                                    <ClustersSettingsPageContent />
-                                </Route>
-                                <Route exact path={NavigationPath.clusterDetails}>
-                                    <Redirect to={NavigationPath.clusterOverview.replace(':id', match.params.id)} />
-                                </Route>
-                            </Switch>
-                        </Suspense>
-                    </AcmScrollable>
-                </AcmErrorBoundary>
-            </ClusterContext.Provider>
-        </AcmPage>
+        <AcmHeader route={AcmRoute.ClusterManagement}>
+            <AcmPage hasDrawer>
+                <ClusterContext.Provider
+                    value={{
+                        cluster,
+                        addons,
+                        addonsError,
+                        importCommand,
+                        setImportCommand,
+                        importCommandError,
+                        setImportCommandError,
+                    }}
+                >
+                    <AcmPageHeader
+                        breadcrumb={[
+                            { text: t('clusters'), to: NavigationPath.clusters },
+                            { text: match.params.id, to: '' },
+                        ]}
+                        title={match.params.id}
+                        navigation={
+                            <AcmSecondaryNav>
+                                <AcmSecondaryNavItem
+                                    isActive={
+                                        location.pathname ===
+                                        NavigationPath.clusterOverview.replace(':id', match.params.id)
+                                    }
+                                >
+                                    <Link to={NavigationPath.clusterOverview.replace(':id', match.params.id)}>
+                                        {t('tab.overview')}
+                                    </Link>
+                                </AcmSecondaryNavItem>
+                                <AcmSecondaryNavItem
+                                    isActive={
+                                        location.pathname ===
+                                        NavigationPath.clusterNodes.replace(':id', match.params.id)
+                                    }
+                                >
+                                    <Link to={NavigationPath.clusterNodes.replace(':id', match.params.id)}>
+                                        {t('tab.nodes')}
+                                    </Link>
+                                </AcmSecondaryNavItem>
+                                <AcmSecondaryNavItem
+                                    isActive={
+                                        location.pathname ===
+                                        NavigationPath.clusterSettings.replace(':id', match.params.id)
+                                    }
+                                >
+                                    <Link to={NavigationPath.clusterSettings.replace(':id', match.params.id)}>
+                                        {t('tab.settings')}
+                                    </Link>
+                                </AcmSecondaryNavItem>
+                            </AcmSecondaryNav>
+                        }
+                        actions={
+                            <Fragment>
+                                <AcmActionGroup>
+                                    <AcmLaunchLink
+                                        links={addons
+                                            ?.filter((addon) => addon.launchLink)
+                                            ?.map((addon) => ({
+                                                id: addon.launchLink?.displayText!,
+                                                text: addon.launchLink?.displayText!,
+                                                href: addon.launchLink?.href!,
+                                            }))}
+                                    />
+                                    <DownloadConfigurationDropdown canGetSecret={canGetSecret} />
+                                    <ClusterActionDropdown cluster={cluster!} isKebab={false} />
+                                </AcmActionGroup>
+                            </Fragment>
+                        }
+                    />
+                    <AcmErrorBoundary>
+                        <AcmScrollable borderTop>
+                            <Suspense fallback={<Fragment />}>
+                                <Switch>
+                                    <Route exact path={NavigationPath.clusterOverview}>
+                                        <ClusterOverviewPageContent canGetSecret={canGetSecret} />
+                                    </Route>
+                                    <Route exact path={NavigationPath.clusterNodes}>
+                                        <NodePoolsPageContent />
+                                    </Route>
+                                    <Route exact path={NavigationPath.clusterSettings}>
+                                        <ClustersSettingsPageContent />
+                                    </Route>
+                                    <Route exact path={NavigationPath.clusterDetails}>
+                                        <Redirect to={NavigationPath.clusterOverview.replace(':id', match.params.id)} />
+                                    </Route>
+                                </Switch>
+                            </Suspense>
+                        </AcmScrollable>
+                    </AcmErrorBoundary>
+                </ClusterContext.Provider>
+            </AcmPage>
+        </AcmHeader>
     )
 }

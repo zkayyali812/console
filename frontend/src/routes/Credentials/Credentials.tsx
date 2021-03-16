@@ -3,16 +3,16 @@
 import {
     AcmButton,
     AcmEmptyState,
+    AcmHeader,
     AcmInlineProvider,
-    AcmPage,
-    AcmPageHeader,
+    AcmRoute,
     AcmScrollable,
     AcmTable,
     AcmTablePaginationContextProvider,
     compareStrings,
     Provider,
 } from '@open-cluster-management/ui-components'
-import { PageSection } from '@patternfly/react-core'
+import { Divider, PageSection, PageSectionVariants, Text, TextContent } from '@patternfly/react-core'
 import { fitContent, TableGridBreakpoint } from '@patternfly/react-table'
 import { Fragment, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -33,9 +33,17 @@ export default function CredentialsPage() {
     const [providerConnections] = useRecoilState(providerConnectionsState)
     const [discoveryConfigs] = useRecoilState(discoveryConfigState)
     return (
-        <AcmPage>
-            <AcmPageHeader title={t('manageCredentials')} />
-            <AcmScrollable borderTop>
+        <AcmHeader route={AcmRoute.ManageCredentials}>
+            <PageSection variant={PageSectionVariants.light}>
+                <TextContent>
+                    <Text component="h1">{t('manageCredentials')}</Text>
+                    <Text component="p">
+                        Credentials for cloud providers, Ansible Tower, bare metal assets, and Red Hat cloud.
+                    </Text>
+                </TextContent>
+            </PageSection>
+            <Divider component="div" />
+            <AcmScrollable>
                 <PageSection variant="light" isFilled={true}>
                     <AcmTablePaginationContextProvider localStorageKey="table-provider-connections">
                         <ProviderConnectionsTable
@@ -45,7 +53,7 @@ export default function CredentialsPage() {
                     </AcmTablePaginationContextProvider>
                 </PageSection>
             </AcmScrollable>
-        </AcmPage>
+        </AcmHeader>
     )
 }
 

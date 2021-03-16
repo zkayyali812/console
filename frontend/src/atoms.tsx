@@ -46,7 +46,7 @@ interface IEventData {
     }
 }
 
-export function LoadData(props: { children?: ReactNode }) {
+export function LoadData(props: { children: ReactNode }) {
     const [loading, setLoading] = useRecoilState(loadingState)
     const [, setBareMetalAssets] = useRecoilState(bareMetalAssetsState)
     const [, setCertificateSigningRequests] = useRecoilState(certificateSigningRequestsState)

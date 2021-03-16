@@ -2,16 +2,19 @@
 /* istanbul ignore file */
 
 import '@patternfly/react-core/dist/styles/base.css'
-import { AcmHeader } from '@open-cluster-management/ui-components'
+import { AcmHeader, AcmRoute } from '@open-cluster-management/ui-components'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 
 ReactDOM.render(
     <React.StrictMode>
-        <React.Suspense fallback={<AcmHeader />}>
-            <App />
-        </React.Suspense>
+        <BrowserRouter>
+            <React.Suspense fallback={<AcmHeader route={AcmRoute.ClusterManagement} />}>
+                <App />
+            </React.Suspense>
+        </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
 )
